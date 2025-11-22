@@ -1,0 +1,40 @@
+version: "3.9"
+
+services:
+  workspace:
+    image: mcr.microsoft.com/vscode/devcontainers/python:3.12
+    container_name: devcontainer-workspace
+    volumes:
+      - ..:/workspaces/Indexing-Query-Performance-with-Public-Big-Data:cached
+    working_dir: /workspaces/Indexing-Query-Performance-with-Public-Big-Data
+    command: sleep infinity
+    depends_on:
+      - mysql
+    ports:
+      - "8000:8000"
+      - "3306:3306"
+    environment:
+      PIP_DISABLE_PIP_VERSION_CHECK: "1"
+    user: vscode
+
+  mysql:
+    image: mysql:8.1
+    container_name: devcontainer-mysql-1
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: bigdata
+    ports:
+      - "3306:3306"
+    command: --local-infile=1
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-uroot", "-prootpass"]
+      interval: 2s
+      timeout: 5s
+      retries: 30
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./data:/var/lib/mysql-files
+
+volumes:
+  mysql_data:

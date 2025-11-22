@@ -1,0 +1,18 @@
+{
+  "name": "Indexing-Query-Performance-with-Public-Big-Data",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "workspace",
+  "workspaceFolder": "/workspaces/Indexing-Query-Performance-with-Public-Big-Data",
+  "forwardPorts": [3306,8501],
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-azuretools.vscode-docker",
+        "ms-ossdata.vscode-mssql"
+      ]
+    }
+  },
+  "postCreateCommand": "pip install -r /workspaces/Indexing-Query-Performance-with-Public-Big-Data/scripts/requirements.txt",
+  "remoteUser": "vscode"
+}

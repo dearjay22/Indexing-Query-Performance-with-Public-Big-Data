@@ -1,0 +1,7 @@
+requests
+mysql-connector-python
+python-dateutil
+pytz
+tqdm
+streamlit
+pandas
