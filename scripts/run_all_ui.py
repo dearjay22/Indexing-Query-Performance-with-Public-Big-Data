@@ -10,8 +10,9 @@ st.title("NYC311 Query Performance Dashboard")
 BASELINE_SCRIPT = "/workspaces/Indexing-Query-Performance-with-Public-Big-Data/scripts/run_baseline_queries.py"
 AFTER_SCRIPT = "/workspaces/Indexing-Query-Performance-with-Public-Big-Data/scripts/run_after_queries.py"
 EXPLAIN_SCRIPT = "/workspaces/Indexing-Query-Performance-with-Public-Big-Data/scripts/run_explain_plans.py"
+Count_SCRIPT = "/workspaces/Indexing-Query-Performance-with-Public-Big-Data/scripts/run_count.py"
 
-option = st.sidebar.radio("Select View:", ["Baseline Queries", "Post-Index Queries", "EXPLAIN Plans"])
+option = st.sidebar.radio("Select View:", ["Total Count","Baseline Queries", "Post-Index Queries", "EXPLAIN Plans"])
 
 def run_script(script_path):
     """Runs an existing Python script and returns stdout, stderr"""
@@ -32,6 +33,13 @@ if option == "Baseline Queries":
 elif option == "Post-Index Queries":
     st.subheader("Post-Index Queries (After Indexing)")
     out, err = run_script(AFTER_SCRIPT)
+    if err:
+        st.error(err)
+    st.text(out)
+
+elif option == "Total Count":
+    st.subheader("Total Count")
+    out, err = run_script(Count_SCRIPT)
     if err:
         st.error(err)
     st.text(out)

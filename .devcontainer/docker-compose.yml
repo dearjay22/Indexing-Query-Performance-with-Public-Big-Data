@@ -12,7 +12,6 @@ services:
       - mysql
     ports:
       - "8000:8000"
-      - "3306:3306"
     environment:
       PIP_DISABLE_PIP_VERSION_CHECK: "1"
     user: vscode
